@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace OnlineChatApp.Client.Services.Authenticate
 {
-	public class AuthenticateResponse
+	public class AuthenticateResponse : BaseResponse
 	{
         public int Id { get; set; }
-		public string Username { get; set; }
+		public string UserName { get; set; }
 		public string Token { get; set; }
     }
 }

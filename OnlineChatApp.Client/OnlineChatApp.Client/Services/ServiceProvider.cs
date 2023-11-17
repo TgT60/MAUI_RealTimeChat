@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using OnlineChatApp.Client.Services.Authenticate;
-
+﻿
 namespace OnlineChatApp.Client.Services
 {
 	public class ServiceProvider
 	{
 		private static ServiceProvider _instance;
 
-		private string _serverRootUrl = "https://10.0.2.2:7082";
+		private string _serverRootUrl = "https://10.0.2.2:7032";
 
 		private string _accessToken = "";
 
@@ -29,12 +22,13 @@ namespace OnlineChatApp.Client.Services
 		}
 
 		public async Task<AuthenticateResponse> Authenticate(AuthenticateRequest request) 
-		{ 
-			using (HttpClient client = new HttpClient()) 
+		{
+			var devSslHelper = new DevHttpsConnectionHelper(sslPort: 7032);
+			using (HttpClient client = devSslHelper.HttpClient) 
 			{
 				var httpRequestMessage = new HttpRequestMessage();
 				httpRequestMessage.Method = HttpMethod.Post;
-				httpRequestMessage.RequestUri = new Uri(_serverRootUrl + "/Authenticate/Authenticate");
+				httpRequestMessage.RequestUri = new Uri(devSslHelper.DevServerRootUrl + "/Authenticate/Authenticate");
 
 				if (request != null)
 				{
@@ -50,16 +44,21 @@ namespace OnlineChatApp.Client.Services
 
 					var result = JsonConvert.DeserializeObject<AuthenticateResponse>(responseContent);
 					result.StatusCode = (int)response.StatusCode;
-					result.StatusMessage = response.RequestMessage;
 
 					if (result.StatusCode == 200) 
 					{
 						_accessToken = result.Token;
 					}
+					return result;
 				}
 				catch (Exception ex)
-				{ 
-				
+				{
+					var result = new AuthenticateResponse
+					{
+						StatusCode = 500,
+						StatusMessage = ex.Message
+					};
+				return result; 
 				}
 			}
 		}

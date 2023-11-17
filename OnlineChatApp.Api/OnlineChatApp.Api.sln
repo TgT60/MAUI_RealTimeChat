@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34309.116
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineChatApp.Api", "OnlineChatApp.Api\OnlineChatApp.Api.csproj", "{05DD42D3-F166-4176-A956-DA3232AFF652}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{05DD42D3-F166-4176-A956-DA3232AFF652}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05DD42D3-F166-4176-A956-DA3232AFF652}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05DD42D3-F166-4176-A956-DA3232AFF652}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05DD42D3-F166-4176-A956-DA3232AFF652}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DDAEF41D-1FB0-4891-AE1E-0925B8BAD3F4}
+	EndGlobalSection
+EndGlobal
