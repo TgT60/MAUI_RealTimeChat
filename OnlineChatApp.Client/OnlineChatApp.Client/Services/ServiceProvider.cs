@@ -5,7 +5,7 @@ namespace OnlineChatApp.Client.Services
 	{
 		private static ServiceProvider _instance;
 
-		private string _serverRootUrl = "https://10.0.2.2:7032";
+		//private string _serverRootUrl = "https://10.0.2.2:7032";
 
 		private string _accessToken = "";
 
@@ -59,6 +59,45 @@ namespace OnlineChatApp.Client.Services
 						StatusMessage = ex.Message
 					};
 				return result; 
+				}
+			}
+		}
+
+		public async Task<TResponse> CallWebApi <TRequest, TResponse>(
+			string apiUrl,HttpMethod httpMethod,TRequest request) where TResponse : BaseResponse
+		{
+			var devSslHelper = new DevHttpsConnectionHelper(sslPort: 7032);
+			using (HttpClient client = devSslHelper.HttpClient)
+			{
+				var httpRequestMessage = new HttpRequestMessage();
+				httpRequestMessage.Method = HttpMethod.Post;
+				httpRequestMessage.RequestUri = new Uri (devSslHelper.DevServerRootUrl + apiUrl);
+				httpRequestMessage.Headers.Authorization = 
+					new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer" + _accessToken);
+
+				if (request != null)
+				{
+					string jsonContent = JsonConvert.SerializeObject(request);
+					var httpContent = new StringContent(jsonContent, encoding: Encoding.UTF8, "application/json");
+					httpRequestMessage.Content = httpContent;
+				}
+
+				try
+				{
+					var response = await client.SendAsync(httpRequestMessage);
+					var responseContent = await response.Content.ReadAsStringAsync();
+
+					var result = JsonConvert.DeserializeObject<TResponse>(responseContent);
+					result.StatusCode = (int)response.StatusCode;
+
+					return result;
+				}
+				catch (Exception ex)
+				{
+					var result = Activator.CreateInstance<TResponse>();
+					result.StatusCode = 500;
+					result.StatusMessage = ex.Message;
+					return result;
 				}
 			}
 		}

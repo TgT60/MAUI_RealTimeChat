@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlineChatApp.Api.Entities;
 
@@ -11,9 +12,11 @@ using OnlineChatApp.Api.Entities;
 namespace OnlineChatApp.Api.Migrations
 {
     [DbContext(typeof(ChatAppContext))]
-    partial class ChatAppContextModelSnapshot : ModelSnapshot
+    [Migration("20231118190412_newEntities")]
+    partial class newEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -90,7 +93,7 @@ namespace OnlineChatApp.Api.Migrations
                     b.ToTable("TblUsers");
                 });
 
-            modelBuilder.Entity("OnlineChatApp.Api.Entities.TblUserFriend", b =>
+            modelBuilder.Entity("OnlineChatApp.Api.Entities.TblUserFrined", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -98,7 +101,7 @@ namespace OnlineChatApp.Api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("FriendId")
+                    b.Property<int>("FrinedId")
                         .HasColumnType("int");
 
                     b.Property<int>("UserId")
@@ -106,7 +109,7 @@ namespace OnlineChatApp.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TblUserFriends");
+                    b.ToTable("TblUserFrineds");
                 });
 #pragma warning restore 612, 618
         }

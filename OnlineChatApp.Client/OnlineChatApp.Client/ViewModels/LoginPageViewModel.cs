@@ -44,11 +44,7 @@ namespace OnlineChatApp.Client.ViewModels
 				var response = await ServiceProvider.GetInstance().Authenticate(request);
 				if (response.StatusCode == 200)
 				{
-					await AppShell.Current.DisplayAlert("ChatApp",
-						"Login successful \n" +
-						$"UserName: {response.UserName} \n" +
-						$"Token: {response.Token}"
-						, "OK");
+					await Shell.Current.GoToAsync($"ListChatPage?userId={response.Id}");
 				}
 				else
 				{
@@ -58,7 +54,6 @@ namespace OnlineChatApp.Client.ViewModels
 			catch (Exception ex) 
 			{
 				await AppShell.Current.DisplayAlert("ChatApp", ex.Message, "OK");
-
 			}
 		}
 

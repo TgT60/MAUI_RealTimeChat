@@ -1,5 +1,8 @@
 
 
+using OnlineChatApp.Api.Functions.Message;
+using OnlineChatApp.Api.Functions.UserFrined;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -15,6 +18,9 @@ builder.Services.AddDbContext<ChatAppContext>(options =>
 }); 
 
 builder.Services.AddTransient<IUserFunction, UserFunction>();
+builder.Services.AddTransient<IUserFriendFunction, UserFriendFunction>();
+builder.Services.AddTransient<IMessageFunction, MessageFunction>();
+
 
 var app = builder.Build();
 
@@ -27,7 +33,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+//app.UseAuthorization();
+
+app.UseMiddleware<JwtMiddleware>();
 
 app.MapControllers();
 

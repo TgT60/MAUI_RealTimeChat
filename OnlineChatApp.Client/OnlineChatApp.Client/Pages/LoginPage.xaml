@@ -82,5 +82,9 @@
             </HorizontalStackLayout>
 
         </VerticalStackLayout>
+        <ActivityIndicator
+            HeightRequest="60"
+            WidthRequest="60"
+            IsRunning="{Binding IsProcessing}"/>
     </Grid>
 </ContentPage>

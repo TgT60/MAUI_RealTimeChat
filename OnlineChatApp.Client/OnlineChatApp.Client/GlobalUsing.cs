@@ -10,3 +10,8 @@ global using OnlineChatApp.Client.Services.Authenticate;
 global using System.Windows.Input;
 global using ServiceProvider = OnlineChatApp.Client.Services.ServiceProvider;
 global using OnlineChatApp.Client.Helpers;
+global using System.Collections.ObjectModel;
+global using OnlineChatApp.Client.Models;
+global using OnlineChatApp.Client.Services.ListChat;
+global using OnlineChatApp.Client.Pages;
+global using System.Web;
