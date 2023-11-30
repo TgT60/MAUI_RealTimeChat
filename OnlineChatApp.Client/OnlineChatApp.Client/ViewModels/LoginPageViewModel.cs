@@ -31,7 +31,6 @@ namespace OnlineChatApp.Client.ViewModels
 					IsProcessing = false;
 				});
 			});
-			
 			this._serviceProvider = serviceProvider;
 		}
 

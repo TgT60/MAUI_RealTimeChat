@@ -72,7 +72,6 @@ namespace OnlineChatApp.Client.Services
 		public async Task<TResponse> CallWebApi<TRequest, TResponse>(
 			string apiUrl, HttpMethod httpMethod, TRequest request) where TResponse : BaseResponse
 		{
-			_devSslHelper.HttpClient.Timeout = TimeSpan.FromSeconds(10);
 			var httpRequestMessage = new HttpRequestMessage();
 			httpRequestMessage.Method = HttpMethod.Post;
 			httpRequestMessage.RequestUri = new Uri(_devSslHelper.DevServerRootUrl + apiUrl);
