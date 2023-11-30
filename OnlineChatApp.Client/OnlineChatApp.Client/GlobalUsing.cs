@@ -16,3 +16,4 @@ global using OnlineChatApp.Client.Services.ListChat;
 global using OnlineChatApp.Client.Pages;
 global using System.Web;
 global using OnlineChatApp.Client.ViewModels;
+global using OnlineChatApp.Client.Services.Message;

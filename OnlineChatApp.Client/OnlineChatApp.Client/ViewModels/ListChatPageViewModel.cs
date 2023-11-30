@@ -22,7 +22,15 @@ namespace OnlineChatApp.Client.ViewModels
 			UserInfo = new User();
 			UserFriends = new ObservableCollection<User>();
 			LastestMessages = new ObservableCollection<LastestMessage>();
+
+			OpenChatPageCommand = new Command<int>(async (param) =>
+			{
+				await Shell.Current.GoToAsync($"ChatPage?fromUserId={UserInfo.Id}&toUserId={param}");
+
+			});
+
 			this._serviceProvider = serviceProvider;
+
 		}
 
 		async Task GetListFriends() 
@@ -40,6 +48,14 @@ namespace OnlineChatApp.Client.ViewModels
 			{
 				await AppShell.Current.DisplayAlert("ChatApp", response.StatusMessage, "OK");
 			}
+		}
+
+		public void Initialize()
+		{
+			Task.Run(async () =>
+			{
+				await GetListFriends();
+			});
 		}
 
 		public void ApplyQueryAttributes(IDictionary<string, object> query)
@@ -71,6 +87,8 @@ namespace OnlineChatApp.Client.ViewModels
 			set { lastestMessages = value; OnPropertyChanged(); }
 		}
 
-	
+		public ICommand OpenChatPageCommand { get; set; }
+
+
 	}
 }

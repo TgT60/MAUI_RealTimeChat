@@ -41,5 +41,24 @@ namespace OnlineChatApp.Api.Functions.Message
 			}
 			return result;
 		}
+
+		public async Task<IEnumerable<Message>> GetMessages(int fromUserId, int toUserId)
+		{
+			var entities = await _chatAppContext.TblMessages
+				.Where(x => (x.FromUserId == fromUserId && x.ToUserId == toUserId)
+				            || (x.FromUserId == toUserId && x.ToUserId == fromUserId))
+				.OrderBy(x => x.SendDateTime)
+				.ToListAsync();
+
+			return entities.Select(x => new Message
+			{
+				Id = x.Id,
+				Content = x.Content,
+				FromUserId =x.FromUserId,
+				ToUserId =x.ToUserId,
+				SendDateTime = x.SendDateTime,
+				IsRead = x.IsRead,
+			});
+		}
 	}
 }

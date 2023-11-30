@@ -20,8 +20,10 @@ namespace OnlineChatApp.Client
 			builder.Services.AddSingleton<AppShell>();
 			builder.Services.AddSingleton<LoginPage>();
 			builder.Services.AddSingleton<ListChatPage>();
+			builder.Services.AddSingleton<ChatPage>();
 			builder.Services.AddSingleton<LoginPageViewModel>();
 			builder.Services.AddSingleton<ListChatPageViewModel>();
+			builder.Services.AddSingleton<ChatPageViewModel>();
 			builder.Services.AddSingleton<ServiceProvider>();
 
 #if DEBUG
