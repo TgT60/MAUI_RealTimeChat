@@ -5,9 +5,6 @@
              x:Class="OnlineChatApp.Client.Pages.LoginPage"
              Title="LoginPage"
              Background="#13232f">
-    <ContentPage.BindingContext>
-        <viewmodel:LoginPageViewModel/>
-    </ContentPage.BindingContext>
     <Grid>
         <VerticalStackLayout Margin="30" VerticalOptions="Center">
             <Label Text="ChatApp"

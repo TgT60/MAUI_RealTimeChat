@@ -41,7 +41,7 @@ namespace OnlineChatApp.Api.Helpers
 
 				context.Items["User"] = userFunction.GetUserById(userId);
 			}
-			catch (Exception ex)
+			catch
 			{
 			
 			}

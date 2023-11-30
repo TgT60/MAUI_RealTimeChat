@@ -11,7 +11,6 @@ namespace OnlineChatApp.Api.Controllers.Authenticate
         public AuthenticateController(IUserFunction userFunction)
         {
 			_userFunction = userFunction;
-
 		}
 
         [HttpPost("Authenticate")]

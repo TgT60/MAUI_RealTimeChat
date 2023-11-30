@@ -15,9 +15,19 @@ namespace OnlineChatApp.Client.ViewModels
 		private ObservableCollection<User> userFriends;
 		private ObservableCollection<LastestMessage> lastestMessages;
 
+		private ServiceProvider _serviceProvider;
+
+		public ListChatPageViewModel(ServiceProvider serviceProvider)
+		{
+			UserInfo = new User();
+			UserFriends = new ObservableCollection<User>();
+			LastestMessages = new ObservableCollection<LastestMessage>();
+			this._serviceProvider = serviceProvider;
+		}
+
 		async Task GetListFriends() 
 		{
-			var response = await ServiceProvider.GetInstance().CallWebApi<int, ListChatInintializeResponse>
+			var response = await _serviceProvider.CallWebApi<int, ListChatInintializeResponse>
 				("/ListChat/Initialize", HttpMethod.Post, UserInfo.Id);
 
 			if (response.StatusCode == 200)
@@ -61,12 +71,6 @@ namespace OnlineChatApp.Client.ViewModels
 			set { lastestMessages = value; OnPropertyChanged(); }
 		}
 
-		public ListChatPageViewModel()
-        {
-			UserInfo = new User();
-			UserFriends = new ObservableCollection<User>();
-			LastestMessages = new ObservableCollection<LastestMessage>();
-		}
 	
 	}
 }

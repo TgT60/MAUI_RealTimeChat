@@ -7,9 +7,6 @@
     xmlns:viewmodel ="clr-namespace:OnlineChatApp.Client.ViewModels"
     Title="Chats"
     Background="#13232f">
-    <ContentPage.BindingContext>
-        <viewmodel:ListChatPageViewModel/>
-    </ContentPage.BindingContext>
     <ContentPage.IconImageSource>
         <FontImageSource FontFamily="IconFontTypes" Glyph="{x:Static helper:IconFontHelper.Messenger}"
                          Size="20"/>
@@ -25,12 +22,12 @@
         <Grid>
             <StackLayout Orientation="Horizontal">
                 <Image
-                    Source="tony_stark.png"
+                    Source="{Binding UserInfo.AvatarSourceName}"
                     WidthRequest="32" 
                     HeightRequest="32"
                     VerticalOptions="Center"/>
                 <Label
-                    Text="Chats"
+                    Text="{Binding UserInfo.UserName}"
                     VerticalOptions="Center"
                     FontSize="20"
                     FontAttributes="Bold"
@@ -144,7 +141,7 @@
                                 HeightRequest="54">
                                 <Image
                                     HorizontalOptions="Start"
-                                    Source="thanos.png" 
+                                    Source="{Binding AvatarSourceName}" 
                                     WidthRequest="54" 
                                     HeightRequest="54"/>
                                 <Ellipse
@@ -174,7 +171,7 @@
                                 </Frame>
                             </Grid>
                             <Label
-                                Text="Thanos"
+                                Text="{Binding UserName}"
                                 FontSize="12"
                                 Margin="0,5,0,0" 
                                 HorizontalTextAlignment="Center"
@@ -197,7 +194,7 @@
                                 HeightRequest="54">
                                 <Image
                                     HorizontalOptions="Start"
-                                    Source="thanos.png" 
+                                    Source="{Binding UserFriendInfo.AvatarSourceName}" 
                                     WidthRequest="54" 
                                     HeightRequest="54"/>
                                 <Ellipse
@@ -232,13 +229,13 @@
                                 HorizontalOptions="Start"
                                 VerticalOptions="Center">
                                 <Label
-                                    Text="Thanos"
+                                    Text="{Binding UserFriendInfo.UserName}"
                                     FontSize="17" 
                                     HorizontalTextAlignment="Start"
                                     HorizontalOptions="Start"
                                     VerticalOptions="Center"/>
                                 <Label
-                                    Text="aaaaaaaaaaaaaa -  Mar 27" 
+                                    Text="{Binding Content}" 
                                     FontSize="12" 
                                     HorizontalTextAlignment="Start"
                                     HorizontalOptions="Center"

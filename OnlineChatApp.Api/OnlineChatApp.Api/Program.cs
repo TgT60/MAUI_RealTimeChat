@@ -1,5 +1,3 @@
-
-
 using OnlineChatApp.Api.Functions.Message;
 using OnlineChatApp.Api.Functions.UserFrined;
 

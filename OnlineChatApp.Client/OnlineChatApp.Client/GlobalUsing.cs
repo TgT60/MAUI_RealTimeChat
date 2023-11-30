@@ -15,3 +15,4 @@ global using OnlineChatApp.Client.Models;
 global using OnlineChatApp.Client.Services.ListChat;
 global using OnlineChatApp.Client.Pages;
 global using System.Web;
+global using OnlineChatApp.Client.ViewModels;

@@ -5,6 +5,7 @@ namespace OnlineChatApp.Api.Controllers.ListChat
 {
 	[ApiController]
 	[Route("[controller]")]
+	[Authorize]
 	public class ListChatController : Controller
 	{
 		IUserFunction _userFunction;
