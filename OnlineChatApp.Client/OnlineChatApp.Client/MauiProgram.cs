@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+
 using OnlineChatApp.Client.ViewModels;
 
 namespace OnlineChatApp.Client
@@ -17,6 +18,7 @@ namespace OnlineChatApp.Client
 					fonts.AddFont("MaterialIcons-Regular.ttf", "IconFontTypes");
 				});
 
+			builder.Services.AddSingleton<ChatHub>();
 			builder.Services.AddSingleton<AppShell>();
 			builder.Services.AddSingleton<LoginPage>();
 			builder.Services.AddSingleton<ListChatPage>();

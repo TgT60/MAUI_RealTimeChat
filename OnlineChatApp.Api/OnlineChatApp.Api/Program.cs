@@ -1,3 +1,4 @@
+using OnlineChatApp.Api.Controllers.ChatHub;
 using OnlineChatApp.Api.Functions.Message;
 using OnlineChatApp.Api.Functions.UserFrined;
 
@@ -6,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddSignalR();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -18,6 +20,10 @@ builder.Services.AddDbContext<ChatAppContext>(options =>
 builder.Services.AddTransient<IUserFunction, UserFunction>();
 builder.Services.AddTransient<IUserFriendFunction, UserFriendFunction>();
 builder.Services.AddTransient<IMessageFunction, MessageFunction>();
+builder.Services.AddScoped<UserOperator>();
+builder.Services.AddScoped<ChatHub>();
+
+builder.Services.AddHttpContextAccessor();
 
 
 var app = builder.Build();
@@ -30,11 +36,18 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseRouting();
 
 //app.UseAuthorization();
 
 app.UseMiddleware<JwtMiddleware>();
 
-app.MapControllers();
+//app.MapControllers();
+
+app.UseEndpoints(endpoint =>
+{
+	endpoint.MapControllers();
+	endpoint.MapHub<ChatHub>("/ChatHub");
+});
 
 app.Run();

@@ -117,14 +117,16 @@
                     <Entry
                         Placeholder="Aa"
                         TextColor="Black"
-                        VerticalOptions="Center"/>
+                        VerticalOptions="Center"
+                        Text="{Binding Message}"/>
                 </VerticalStackLayout>
             </Frame>
             <Button Grid.Column="1"
                     BackgroundColor="#152c39"
                     HeightRequest="32"
                     WidthRequest="32"
-                    CornerRadius="45">
+                    CornerRadius="45"
+                    Command="{Binding SendMessageCommand}">
                     <Button.ImageSource>
                         <FontImageSource
                             FontFamily="IconFontTypes"

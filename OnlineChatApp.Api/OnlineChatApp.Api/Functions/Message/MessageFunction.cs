@@ -11,7 +11,26 @@ namespace OnlineChatApp.Api.Functions.Message
 			_chatAppContext = chatAppContext;
 			_userFunction = userFunction;
 		}
-        public async Task<IEnumerable<LastestMessage>> GetLastestMessage(int userId)
+
+        public async Task<int> AddMessage(int fromUserId, int toUserId, string message)
+        {
+	        var entity = new TblMessage
+	        {
+				FromUserId = fromUserId,
+				ToUserId = toUserId,
+				Content = message,
+				SendDateTime = DateTime.Now,
+				IsRead = false
+	        };
+			
+			_chatAppContext.TblMessages.Add(entity);
+
+			var result = await _chatAppContext.SaveChangesAsync();
+
+			return result;
+        }
+
+		public async Task<IEnumerable<LastestMessage>> GetLastestMessage(int userId)
 		{
 			var result = new List<LastestMessage>();
 

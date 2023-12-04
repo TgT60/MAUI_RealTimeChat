@@ -20,16 +20,45 @@ namespace OnlineChatApp.Client.ViewModels
 		}
 
 		private ServiceProvider _serviceProvider;
+		private ChatHub _chatHub;
 
 		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
 		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 
-		public ChatPageViewModel(ServiceProvider serviceProvider)
+		public ChatPageViewModel(ServiceProvider serviceProvider, ChatHub chatHub)
 		{
 			Messages = new ObservableCollection<Message>();
 			_serviceProvider = serviceProvider;
+			_chatHub = chatHub;
+			_chatHub.AddReceivedMessageHandler(OnReceiveMessage);
+			_chatHub.Connect();
+
+			SendMessageCommand = new Command(async () =>
+			{
+				try
+				{
+					if (Message.Trim() != "")
+					{
+						await _chatHub.SendMessageToUser(FromUserId, ToUserId, Message);
+
+						Messages.Add(new Models.Message
+						{
+							Content = Message,
+							FromUserId = FromUserId,
+							ToUserId = ToUserId,
+							SendDateTime = DateTime.Now
+						});
+
+						Message = "";
+					}
+				}
+				catch (Exception ex)
+				{
+					await AppShell.Current.DisplayAlert("ChatApp", ex.Message, "OK");
+				}
+			});
 		}
 
 		async Task GetMessages()
@@ -68,12 +97,23 @@ namespace OnlineChatApp.Client.ViewModels
 			});
 		}
 
+		public void OnReceiveMessage(int fromUserId, string message)
+		{
+			Messages.Add(new Models.Message
+			{
+				Content = message,
+				FromUserId = ToUserId,
+				ToUserId = FromUserId,
+				SendDateTime = DateTime.Now
+			});
+		}
+
 		private int fromUserId;
 		private int toUserId;
 		private User friendInfo;
 		private ObservableCollection<Message> messages;
 		private bool isRefreshing;
-
+		private string message;
 		public int FromUserId
 		{
 			get { return fromUserId; }
@@ -85,23 +125,28 @@ namespace OnlineChatApp.Client.ViewModels
 			get { return toUserId; }
 			set { toUserId = value; OnPropertyChanged(); }
 		}
-
 		public User FriendInfo
 		{
 			get { return friendInfo; }
 			set { friendInfo = value; OnPropertyChanged(); }
 		}
-
 		public ObservableCollection<Message> Messages
 		{
 			get { return messages; }
 			set { messages = value; OnPropertyChanged();}
 		}
-
 		public bool IsRefreshing
 		{
 			get { return isRefreshing;}
 			set { isRefreshing = value; OnPropertyChanged(); }
 		}
+
+		public string Message
+		{
+			get => message;
+			set { message = value; OnPropertyChanged(); }
+		}
+
+		public ICommand SendMessageCommand { get; set; }
 	}
 }

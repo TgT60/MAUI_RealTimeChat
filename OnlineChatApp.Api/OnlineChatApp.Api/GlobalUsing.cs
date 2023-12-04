@@ -6,4 +6,5 @@ global using Microsoft.IdentityModel.Tokens;
 global using Microsoft.AspNetCore.Mvc.Filters;
 global using Microsoft.AspNetCore.Mvc;
 global using OnlineChatApp.Api.Helpers;
+global using Microsoft.AspNetCore.SignalR;
 

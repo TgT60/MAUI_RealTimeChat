@@ -17,3 +17,7 @@ global using OnlineChatApp.Client.Pages;
 global using System.Web;
 global using OnlineChatApp.Client.ViewModels;
 global using OnlineChatApp.Client.Services.Message;
+global using Microsoft.AspNetCore.SignalR;
+global using Microsoft.AspNetCore.SignalR.Client;
+global using OnlineChatApp.Client.Services.ChatHub;
+
