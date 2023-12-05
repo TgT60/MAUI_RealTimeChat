@@ -8,6 +8,7 @@
 
 			Routing.RegisterRoute("ListChatPage", typeof(ListChatPage));
 			Routing.RegisterRoute("ChatPage", typeof(ChatPage));
+			Routing.RegisterRoute("RegisterPage", typeof(RegisterPage));
 
 			this.CurrentItem = loginPage;
 		}

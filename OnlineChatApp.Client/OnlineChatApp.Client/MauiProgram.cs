@@ -19,6 +19,8 @@
 			builder.Services.AddSingleton<LoginPage>();
 			builder.Services.AddSingleton<ListChatPage>();
 			builder.Services.AddSingleton<ChatPage>();
+			builder.Services.AddSingleton<RegisterPage>();
+			builder.Services.AddSingleton<RegisterPageViewModel>();
 			builder.Services.AddSingleton<LoginPageViewModel>();
 			builder.Services.AddSingleton<ListChatPageViewModel>();
 			builder.Services.AddSingleton<ChatPageViewModel>();
