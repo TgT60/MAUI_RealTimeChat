@@ -11,10 +11,6 @@ namespace OnlineChatApp.Client.ViewModels
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 
-		private User userInfo;
-		private ObservableCollection<User> userFriends;
-		private ObservableCollection<LastestMessage> lastestMessages;
-
 		private ServiceProvider _serviceProvider;
 
 		public ListChatPageViewModel(ServiceProvider serviceProvider)
@@ -23,15 +19,31 @@ namespace OnlineChatApp.Client.ViewModels
 			UserFriends = new ObservableCollection<User>();
 			LastestMessages = new ObservableCollection<LastestMessage>();
 
+			RefreshCommand = new Command(() =>
+			{
+				Task.Run(async () =>
+				{
+					IsRefreshing = true;
+					await GetListFriends();
+				}).GetAwaiter().OnCompleted(() =>
+				{
+					IsRefreshing = false;
+				});
+			});
+
 			OpenChatPageCommand = new Command<int>(async (param) =>
 			{
 				await Shell.Current.GoToAsync($"ChatPage?fromUserId={UserInfo.Id}&toUserId={param}");
-
 			});
 
 			this._serviceProvider = serviceProvider;
 
 		}
+
+		private User userInfo;
+		private ObservableCollection<User> userFriends;
+		private ObservableCollection<LastestMessage> lastestMessages;
+		private bool isRefreshing;
 
 		async Task GetListFriends() 
 		{
@@ -54,7 +66,11 @@ namespace OnlineChatApp.Client.ViewModels
 		{
 			Task.Run(async () =>
 			{
+				IsRefreshing = true;
 				await GetListFriends();
+			}).GetAwaiter().OnCompleted(() =>
+			{
+				IsRefreshing = false;
 			});
 		}
 
@@ -63,10 +79,6 @@ namespace OnlineChatApp.Client.ViewModels
 			if (query == null || query.Count == 0) return;
 
 			UserInfo.Id = int.Parse(HttpUtility.UrlDecode(query["userId"].ToString()));
-			Task.Run(async () =>
-			{
-				await GetListFriends();
-			});
 		}
 
 		public User UserInfo
@@ -86,9 +98,12 @@ namespace OnlineChatApp.Client.ViewModels
 			get { return lastestMessages; }
 			set { lastestMessages = value; OnPropertyChanged(); }
 		}
-
+		public bool IsRefreshing
+		{
+			get { return isRefreshing; }
+			set { isRefreshing = value; OnPropertyChanged(); }
+		}
+		public ICommand RefreshCommand { get; set; }
 		public ICommand OpenChatPageCommand { get; set; }
-
-
 	}
 }

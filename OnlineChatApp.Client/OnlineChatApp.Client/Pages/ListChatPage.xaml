@@ -4,7 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:helper="clr-namespace:OnlineChatApp.Client.Helpers"
-    xmlns:viewmodel ="clr-namespace:OnlineChatApp.Client.ViewModels"
+    xmlns:viewModels ="clr-namespace:OnlineChatApp.Client.ViewModels"
     Title="Chats"
     Background="#13232f"
     NavigatedTo="ListChatPage_OnNavigatedTo">
@@ -148,7 +148,7 @@
                                         HeightRequest="54">
                                         <Image.GestureRecognizers>
                                             <TapGestureRecognizer Command="{Binding Path= OpenChatPageCommand,
-                                                Source={RelativeSource AncestorType={x:Type viewmodel:ListChatPageViewModel}}}"
+                                                Source={RelativeSource AncestorType={x:Type viewModels:ListChatPageViewModel}}}"
                                                                   CommandParameter="{Binding Id}"/>
                                         </Image.GestureRecognizers>
                                     </Image>
@@ -201,7 +201,7 @@
                             <HorizontalStackLayout>
                                 <HorizontalStackLayout.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Path= OpenChatPageCommand,
-                                                Source={RelativeSource AncestorType={x:Type viewmodel:ListChatPageViewModel}}}"
+                                                Source={RelativeSource AncestorType={x:Type viewModels:ListChatPageViewModel}}}"
                                                           CommandParameter="{Binding UserFriendInfo.Id}"/>
                                 </HorizontalStackLayout.GestureRecognizers>
                                 <Grid

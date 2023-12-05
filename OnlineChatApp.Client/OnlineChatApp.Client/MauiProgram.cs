@@ -1,8 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-
-using OnlineChatApp.Client.ViewModels;
-
-namespace OnlineChatApp.Client
+﻿namespace OnlineChatApp.Client
 {
 	public static class MauiProgram
 	{
@@ -28,9 +24,6 @@ namespace OnlineChatApp.Client
 			builder.Services.AddSingleton<ChatPageViewModel>();
 			builder.Services.AddSingleton<ServiceProvider>();
 
-#if DEBUG
-			builder.Logging.AddDebug();
-#endif
 
 			return builder.Build();
 		}

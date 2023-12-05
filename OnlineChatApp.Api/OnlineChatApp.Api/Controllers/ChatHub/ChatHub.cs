@@ -30,7 +30,7 @@ namespace OnlineChatApp.Api.Controllers.ChatHub
 
 			
 			await Clients.Clients(connectionIds)
-				.SendAsync("ReceiveMessage", fromUserId, toUserId, message);
+				.SendAsync("ReceiveMessage", fromUserId,message);
 		}
 
 		public override Task OnConnectedAsync()

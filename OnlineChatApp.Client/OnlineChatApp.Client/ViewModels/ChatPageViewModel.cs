@@ -76,7 +76,6 @@ namespace OnlineChatApp.Client.ViewModels
 			{
 				FriendInfo = response.FriendInfo;
 				Messages = new ObservableCollection<Message>(response.Messages);
-				
 			}
 			else
 			{
@@ -86,19 +85,19 @@ namespace OnlineChatApp.Client.ViewModels
 
 		public void Initialize()
 		{
-			isRefreshing = false;
 			Task.Run(async () =>
 			{
-				isRefreshing = true;	
+				IsRefreshing = true;	
 				await GetMessages();
 			}).GetAwaiter().OnCompleted(() =>
 			{
-				isRefreshing = false;
+				IsRefreshing = false;
 			});
 		}
 
 		public void OnReceiveMessage(int fromUserId, string message)
 		{
+
 			Messages.Add(new Models.Message
 			{
 				Content = message,
@@ -143,7 +142,7 @@ namespace OnlineChatApp.Client.ViewModels
 
 		public string Message
 		{
-			get => message;
+			get { return message; }
 			set { message = value; OnPropertyChanged(); }
 		}
 

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR.Client;
-using Microsoft.AspNetCore.SignalR.Client;
 
 namespace OnlineChatApp.Client.Services.ChatHub
 {
@@ -17,7 +16,6 @@ namespace OnlineChatApp.Client.Services.ChatHub
 		public ChatHub(ServiceProvider serviceProvider)
 		{
 			_serviceProvider = serviceProvider;
-
 			var devSslHelper = new DevHttpsConnectionHelper(sslPort: 7032);
 			hubConnection = new HubConnectionBuilder()
 				.WithUrl(devSslHelper.DevServerRootUrl + "/ChatHub", options =>
@@ -39,7 +37,7 @@ namespace OnlineChatApp.Client.Services.ChatHub
 
 		public async Task Disconnect()
 		{
-			await hubConnection.StopAsync();
+			await hubConnection?.StopAsync();
 		}
 
 		public async Task SendMessageToUser(int fromUserId, int toUserId, string message)

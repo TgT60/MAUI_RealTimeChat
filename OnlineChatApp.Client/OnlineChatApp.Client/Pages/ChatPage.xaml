@@ -114,13 +114,13 @@
                 CornerRadius="20"
                 HeightRequest="36">
                 <VerticalStackLayout>
-                    <Entry
+                <Entry
                         Placeholder="Aa"
                         TextColor="Black"
                         VerticalOptions="Center"
                         Text="{Binding Message}"/>
                 </VerticalStackLayout>
-            </Frame>
+                </Frame>
             <Button Grid.Column="1"
                     BackgroundColor="#152c39"
                     HeightRequest="32"
@@ -133,8 +133,8 @@
                             Glyph="{x:Static helper:IconFontHelper.Send}"
                             Size="18"/>
                     </Button.ImageSource>
-            </Button>
+                </Button>
+            </Grid>
         </Grid>
-    </Grid>
     </RefreshView>
 </ContentPage>
