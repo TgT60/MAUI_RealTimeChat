@@ -17,15 +17,15 @@ namespace OnlineChatApp.Api.Controllers.Register
 		public IActionResult Register(RegisterRequest request)
 		{
 
-			var response = _userFunction.Register(request.UserName, request.LoginId, request.Password);
-			if (response == null)
+			var registerResponse = _userFunction.Register(request.UserName, request.LoginId, request.Password);
+			if (registerResponse == null)
 			{
 				return BadRequest(new { StatusMessage = "Login name have already exist" });
 			}
 
-			return Ok(response);
+			var authResponse = _userFunction.Authenticate(request.LoginId, request.Password);
 
-
+			return Ok(authResponse);
 		}
 	}
 }

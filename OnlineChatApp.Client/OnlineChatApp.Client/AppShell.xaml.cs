@@ -2,7 +2,7 @@
 {
 	public partial class AppShell : Shell
 	{
-		public AppShell(LoginPage loginPage)
+		public AppShell(RegisterPage loginPage)
 		{
 			InitializeComponent();
 
@@ -13,13 +13,5 @@
 			this.CurrentItem = loginPage;
 		}
 
-		//public AppShell(ChatPage chatPage)
-		//{
-		//	InitializeComponent();
-
-		//	Routing.RegisterRoute("ListChatPage", typeof(ListChatPage));
-
-		//	this.CurrentItem = chatPage;
-		//}
 	}
 }

@@ -89,7 +89,7 @@ namespace OnlineChatApp.Api.Functions.User
 			_chatAppContext.TblUsers.Add(newUser);
 			_chatAppContext.SaveChanges();
 
-			var token = GenerateJwtToken(newUser);
+			Authenticate(loginId,password);
 
 			return newUser;
 		}

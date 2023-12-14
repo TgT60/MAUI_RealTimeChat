@@ -55,7 +55,8 @@
                 Margin="00,50,00,0"
                 Text="Register"
                 TextColor="White"
-                BackgroundColor="#f0932b"/>
+                BackgroundColor="#f0932b"
+                Command="{Binding RegisterCommand}"/>
 
             <HorizontalStackLayout Margin="0,50,0,0" HorizontalOptions="Center">
                 <Line
@@ -93,5 +94,9 @@
             </HorizontalStackLayout>
 
         </VerticalStackLayout>
+        <ActivityIndicator
+            HeightRequest="60"
+            WidthRequest="60"
+            IsRunning="{Binding IsProcessing}"/>
     </Grid>
 </ContentPage>
