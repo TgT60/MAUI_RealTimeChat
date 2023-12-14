@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OnlineChatApp.Client.ViewModels
+﻿namespace OnlineChatApp.Client.ViewModels
 {
 	public class RegisterPageViewModel : INotifyPropertyChanged
 	{
@@ -14,7 +8,12 @@ namespace OnlineChatApp.Client.ViewModels
 
 		public RegisterPageViewModel(ServiceProvider serviceProvider)
 		{
-			this._serviceProvider = serviceProvider;
+			_serviceProvider = serviceProvider;
 		}
+
+		private string userName;
+		private string loginId;
+		private string password;
+
 	}
 }

@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using OnlineChatApp.Api.Entities;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace OnlineChatApp.Api.Functions.User
@@ -20,6 +22,7 @@ namespace OnlineChatApp.Api.Functions.User
 			try 
 			{
 				var entity = _chatAppContext.TblUsers.SingleOrDefault(x => x.LoginId == loginId);
+				
 				if (entity == null) return null;
 
 				var isPasswordMatched = VertifyPassword(password,entity.StoredSalt,entity.Password);
@@ -59,6 +62,39 @@ namespace OnlineChatApp.Api.Functions.User
 			};
 		}
 
+		public TblUser Register(string userName, string loginId, string password)
+		{
+			var existingUser = _chatAppContext.TblUsers.SingleOrDefault(x => x.LoginId == loginId);
+
+			if (existingUser != null) 
+			{
+				return null;
+			}
+
+			var passwordHelper = new PasswordHelper();
+			var salt = passwordHelper.GenerateSalt();
+			var hashedPassword = passwordHelper.HashPassword(password, salt);
+
+			var newUser = new TblUser
+			{
+				UserName = userName,
+				LoginId = loginId,
+				Password = hashedPassword,
+				AvatarSourceName = "Test",
+				StoredSalt = salt,
+				IsOnline = false,
+				LastLogonTime = DateTime.Now
+			};
+
+			_chatAppContext.TblUsers.Add(newUser);
+			_chatAppContext.SaveChanges();
+
+			var token = GenerateJwtToken(newUser);
+
+			return newUser;
+		}
+
+
 		private bool VertifyPassword(string enteredPassword, byte[] storedSalt, string storedPassword)
 		{ 
 			string encryptyedPassword = Convert.ToBase64String(KeyDerivation.Pbkdf2(
@@ -70,6 +106,7 @@ namespace OnlineChatApp.Api.Functions.User
 
 			return encryptyedPassword.Equals(storedPassword);
 		}
+
 
 		private string GenerateJwtToken(TblUser user)
 		{
@@ -87,5 +124,7 @@ namespace OnlineChatApp.Api.Functions.User
 			var token = tokenHandler.CreateToken(tokenDescriptor);
 			return tokenHandler.WriteToken(token);
 		}
+
+
 	}
 }

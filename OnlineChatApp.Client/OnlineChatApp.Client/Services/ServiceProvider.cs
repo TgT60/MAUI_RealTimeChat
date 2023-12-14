@@ -3,26 +3,11 @@ namespace OnlineChatApp.Client.Services
 {
 	public class ServiceProvider
 	{
-		//private static ServiceProvider _instance;
-
-		//private string _serverRootUrl = "https://10.0.2.2:7032";
 
 		public string _accessToken = "";
 
 		private DevHttpsConnectionHelper _devSslHelper;
-
-        //private ServiceProvider() {}
-
-		//public static ServiceProvider GetInstance()
-		//{
-		//	if (_instance == null)
-		//	{ 
-		//		_instance = new ServiceProvider();
-		//	}
-
-		//	return _instance;
-		//}
-
+		
 		public ServiceProvider()
 		{
 			_devSslHelper = new DevHttpsConnectionHelper(sslPort: 7032);

@@ -4,5 +4,6 @@
 	{
 		User? Authenticate(string loginId, string password);
 		User GetUserById(int id);
+		TblUser Register(string userName,string loginId,string password);
 	}
 }
