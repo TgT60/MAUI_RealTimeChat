@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Android.Graphics.Drawables;
 using OnlineChatApp.Client.Services.Member;
 
 namespace OnlineChatApp.Client.ViewModels
@@ -20,24 +21,37 @@ namespace OnlineChatApp.Client.ViewModels
 
 		public MemberPageViewModel(ServiceProvider serviceProvider)
 		{
+			UserInfo = new User();
+			AllMembers = new ObservableCollection<User>();
+
+			RefreshCommand = new Command( () =>
+			{
+				Task.Run(async () =>
+				{
+					IsRefreshing = true;
+					await GetListMember();
+				}).GetAwaiter().OnCompleted(() =>
+				{
+					IsRefreshing = false;
+				});
+			});
+
 			_serviceProvider = serviceProvider;
 		}
 
 		private User userInfo;
-		private ObservableCollection<User> members { get; set; }
+		private ObservableCollection<User> allMembers { get; set; }
 		private bool isRefreshing;
 
 		async Task GetListMember()
 		{
-
 			var response = await _serviceProvider.CallWebApi<int, MemberResponse>
 				("/Member/Members", HttpMethod.Post, UserInfo.Id);
 
 			if (response.StatusCode == 200)
 			{
 				UserInfo = response.User;
-				Members = new ObservableCollection<User>(response.AllMembers);
-				//	LastestMessages = new ObservableCollection<LastestMessage>(response.LastestMessages);
+				AllMembers = new ObservableCollection<User>(response.AllMembers);
 			}
 			else
 			{
@@ -63,15 +77,17 @@ namespace OnlineChatApp.Client.ViewModels
 			get => userInfo;
 			set { userInfo = value; OnPropertyChanged(); }
 		}
-		public ObservableCollection<User> Members
+		public ObservableCollection<User> AllMembers
 		{
-			get => members;
-			set { members = value; OnPropertyChanged(); }
+			get => allMembers;
+			set { allMembers = value; OnPropertyChanged(); }
 		}
 		public bool IsRefreshing
 		{
 			get => isRefreshing;
 			set { isRefreshing = value; OnPropertyChanged(); }
 		}
+
+		public ICommand RefreshCommand { get; set; }
 	}
 }

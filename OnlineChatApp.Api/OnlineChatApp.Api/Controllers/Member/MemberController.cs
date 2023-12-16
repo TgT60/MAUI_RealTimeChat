@@ -4,7 +4,7 @@ namespace OnlineChatApp.Api.Controllers.Member
 {
 	[ApiController]
 	[Route("[controller]")]
-    [Authorize]
+    //[Authorize]
 	public class MemberController : Controller
 	{
 		private IUserFunction _userFunction;

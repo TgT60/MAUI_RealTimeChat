@@ -10,7 +10,7 @@
     <RefreshView>
         <Grid>
             <ListView 
-               Grid.Row="1" ItemsSource="{Binding Members}"
+               Grid.Row="0" ItemsSource="{Binding AllMembers}"
                RowHeight="64"
                SeparatorVisibility="None"
                VerticalScrollBarVisibility="Never">

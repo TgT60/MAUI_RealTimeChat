@@ -56,14 +56,14 @@ namespace OnlineChatApp.Client.ViewModels
 
 		async Task GetListFriends() 
 		{
-			var response = await _serviceProvider.CallWebApi<int, MemberResponse>
+			var response = await _serviceProvider.CallWebApi<int, ListChatInintializeResponse>
 				("/Member/Members", HttpMethod.Post, UserInfo.Id);
 
 			if (response.StatusCode == 200)
 			{
 				UserInfo = response.User;
-				UserFriends = new ObservableCollection<User>(response.AllMembers);
-			//	LastestMessages = new ObservableCollection<LastestMessage>(response.LastestMessages);
+				UserFriends = new ObservableCollection<User>(response.UserFriends);
+			    LastestMessages = new ObservableCollection<LastestMessage>(response.LastestMessages);
 			}
 			else
 			{
