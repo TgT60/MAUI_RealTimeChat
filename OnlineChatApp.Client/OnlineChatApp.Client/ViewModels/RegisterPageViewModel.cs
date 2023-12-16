@@ -15,9 +15,9 @@ namespace OnlineChatApp.Client.ViewModels
 
 		public RegisterPageViewModel(ServiceProvider serviceProvider)
 		{
-			UserName = "Kek6";
-			LoginId = "Kek6";
-			Password = "6";
+			UserName = "Kek20";
+			LoginId = "Kek20";
+			Password = "20";
 			IsProcessing = false;
 
 			RegisterCommand = new Command(() =>
@@ -92,7 +92,6 @@ namespace OnlineChatApp.Client.ViewModels
 			get => isProcessing;
 			set { isProcessing = value; OnPropertyChanged();}
 		}
-
 		public ICommand RegisterCommand { get; set; }
 	}
 }

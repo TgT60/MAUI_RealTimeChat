@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helper="clr-namespace:OnlineChatApp.Client.Helpers"
+             xmlns:viewModels="clr-namespace:OnlineChatApp.Client.ViewModels"
+             x:Class="OnlineChatApp.Client.Pages.MemberPage"
+             Title="MemberPage"
+             Background="#13232f"
+             NavigatedTo="MemberPage_OnNavigatedTo">
+    <RefreshView>
+        <Grid>
+            <ListView 
+               Grid.Row="1" ItemsSource="{Binding Members}"
+               RowHeight="64"
+               SeparatorVisibility="None"
+               VerticalScrollBarVisibility="Never">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <HorizontalStackLayout>
+                                <HorizontalStackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Path= OpenChatPageCommand,
+                                               Source={RelativeSource AncestorType={x:Type viewModels:MemberPageViewModel}}}"
+                                                         CommandParameter="{Binding UserFriendInfo.Id}"/>
+                                </HorizontalStackLayout.GestureRecognizers>
+                                <Grid
+                                   WidthRequest="58"
+                                   HeightRequest="54">
+                                    <Image
+                                       HorizontalOptions="Start"
+                                       Source="{Binding AvatarSourceName}" 
+                                       WidthRequest="54" 
+                                       HeightRequest="54"/>
+                                    <Ellipse
+                                       WidthRequest="18"
+                                       HeightRequest="18"
+                                       Fill="Green"
+                                       Stroke="#152c39"
+                                       StrokeThickness="3"
+                                       HorizontalOptions="End"
+                                       VerticalOptions="End"
+                                       IsVisible="false"/>
+                                    <Frame
+                                       Padding="5,0,5,0"
+                                       BackgroundColor="SkyBlue"
+                                       CornerRadius="10"
+                                       BorderColor="#152c39"
+                                       VerticalOptions="End"
+                                       HeightRequest="12"
+                                       HorizontalOptions="End"
+                                       IsVisible="True">
+                                        <Label
+                                           FontSize="10"
+                                           Text="12m"
+                                           VerticalOptions="Center"
+                                           TextColor="Black"
+                                           HorizontalOptions="Center"/>
+                                    </Frame>
+                                </Grid>
+
+                                <StackLayout 
+                                   Margin="10,5,0,0"
+                                   HorizontalOptions="Start"
+                                   VerticalOptions="Center">
+                                    <Label
+                                       Text="{Binding UserName}"
+                                       FontSize="17" 
+                                       HorizontalTextAlignment="Start"
+                                       HorizontalOptions="Start"
+                                       VerticalOptions="Center"/>
+                                    <Label
+                                       Text="{Binding Content}" 
+                                       FontSize="12" 
+                                       HorizontalTextAlignment="Start"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"/>
+                                </StackLayout>
+                            </HorizontalStackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </RefreshView>
+</ContentPage>

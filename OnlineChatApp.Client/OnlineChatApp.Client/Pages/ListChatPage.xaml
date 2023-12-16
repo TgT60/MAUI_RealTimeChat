@@ -257,12 +257,10 @@
                                         VerticalOptions="Center"/>
                                 </StackLayout>
                             </HorizontalStackLayout>
-
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-
         </Grid>
     </RefreshView>
 </ContentPage>

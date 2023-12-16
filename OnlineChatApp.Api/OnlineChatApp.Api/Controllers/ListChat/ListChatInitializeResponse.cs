@@ -1,5 +1,6 @@
 ﻿using OnlineChatApp.Api.Functions.Message;
 
+
 namespace OnlineChatApp.Api.Controllers.ListChat
 {
 	public class ListChatInitializeResponse

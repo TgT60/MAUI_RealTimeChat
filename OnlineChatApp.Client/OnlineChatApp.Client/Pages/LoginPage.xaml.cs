@@ -1,5 +1,3 @@
-
-
 namespace OnlineChatApp.Client.Pages;
 
 public partial class LoginPage : ContentPage
@@ -9,6 +7,5 @@ public partial class LoginPage : ContentPage
 		InitializeComponent();
 
 		this.BindingContext = viewModel;
-		
 	}
 }

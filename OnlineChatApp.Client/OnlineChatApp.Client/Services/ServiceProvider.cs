@@ -99,7 +99,7 @@ namespace OnlineChatApp.Client.Services
 			string apiUrl, HttpMethod httpMethod, TRequest request) where TResponse : BaseResponse
 		{
 			var httpRequestMessage = new HttpRequestMessage();
-			httpRequestMessage.Method = HttpMethod.Post;
+			httpRequestMessage.Method = httpMethod;
 			httpRequestMessage.RequestUri = new Uri(_devSslHelper.DevServerRootUrl + apiUrl);
 			httpRequestMessage.Headers.Authorization =
 				new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _accessToken);

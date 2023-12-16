@@ -17,6 +17,7 @@ namespace OnlineChatApp.Api.Functions.User
 			_chatAppContext = chatAppContext;
 		}
 
+
         public User? Authenticate(string loginId, string password)
 		{
 			try 
@@ -25,7 +26,7 @@ namespace OnlineChatApp.Api.Functions.User
 				
 				if (entity == null) return null;
 
-				var isPasswordMatched = VertifyPassword(password,entity.StoredSalt,entity.Password);
+				var isPasswordMatched = VerifyPassword(password,entity.StoredSalt,entity.Password);
 
 				if (!isPasswordMatched) return null;
 
@@ -43,6 +44,37 @@ namespace OnlineChatApp.Api.Functions.User
 				return null;
 			}
 		}
+        public TblUser Register(string userName, string loginId, string password)
+        {
+	        var existingUser = _chatAppContext.TblUsers.SingleOrDefault(x => x.LoginId == loginId);
+
+	        if (existingUser != null)
+	        {
+		        return null;
+	        }
+
+	        var passwordHelper = new PasswordHelper();
+	        var salt = passwordHelper.GenerateSalt();
+	        var hashedPassword = passwordHelper.HashPassword(password, salt);
+
+	        var newUser = new TblUser
+	        {
+		        UserName = userName,
+		        LoginId = loginId,
+		        Password = hashedPassword,
+		        AvatarSourceName = "Test",
+		        StoredSalt = salt,
+		        IsOnline = false,
+		        LastLogonTime = DateTime.Now
+	        };
+
+	        _chatAppContext.TblUsers.Add(newUser);
+	        _chatAppContext.SaveChanges();
+
+	        Authenticate(loginId, password);
+
+	        return newUser;
+        }
 
 		public User GetUserById(int id)
 		{
@@ -62,40 +94,27 @@ namespace OnlineChatApp.Api.Functions.User
 			};
 		}
 
-		public TblUser Register(string userName, string loginId, string password)
+		public async Task<IEnumerable<User>> GetMembers()
 		{
-			var existingUser = _chatAppContext.TblUsers.SingleOrDefault(x => x.LoginId == loginId);
+			var tblUsers = await _chatAppContext.TblUsers.ToListAsync();
 
-			if (existingUser != null) 
+			if (tblUsers == null) return new List<User>();
+
+			var allUsers = tblUsers.Select(tblUsers => new User
 			{
-				return null;
-			}
+				UserName = tblUsers.UserName,
+				Id = tblUsers.Id,
+				AvatarSourceName = tblUsers.AvatarSourceName,
+				AwayDuration = "",
+				IsOnline = tblUsers.IsOnline,
+				LastLogonTime = tblUsers.LastLogonTime
+			});
 
-			var passwordHelper = new PasswordHelper();
-			var salt = passwordHelper.GenerateSalt();
-			var hashedPassword = passwordHelper.HashPassword(password, salt);
-
-			var newUser = new TblUser
-			{
-				UserName = userName,
-				LoginId = loginId,
-				Password = hashedPassword,
-				AvatarSourceName = "Test",
-				StoredSalt = salt,
-				IsOnline = false,
-				LastLogonTime = DateTime.Now
-			};
-
-			_chatAppContext.TblUsers.Add(newUser);
-			_chatAppContext.SaveChanges();
-
-			Authenticate(loginId,password);
-
-			return newUser;
+			return allUsers;
 		}
 
 
-		private bool VertifyPassword(string enteredPassword, byte[] storedSalt, string storedPassword)
+		private bool VerifyPassword(string enteredPassword, byte[] storedSalt, string storedPassword)
 		{ 
 			string encryptyedPassword = Convert.ToBase64String(KeyDerivation.Pbkdf2(
 				password: enteredPassword,
@@ -106,7 +125,6 @@ namespace OnlineChatApp.Api.Functions.User
 
 			return encryptyedPassword.Equals(storedPassword);
 		}
-
 
 		private string GenerateJwtToken(TblUser user)
 		{
@@ -127,4 +145,5 @@ namespace OnlineChatApp.Api.Functions.User
 
 
 	}
+
 }
