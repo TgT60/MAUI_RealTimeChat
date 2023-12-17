@@ -57,7 +57,7 @@ namespace OnlineChatApp.Client.ViewModels
 		async Task GetListFriends() 
 		{
 			var response = await _serviceProvider.CallWebApi<int, ListChatInintializeResponse>
-				("/Member/Members", HttpMethod.Post, UserInfo.Id);
+				("/ListChat/Initialize", HttpMethod.Post, UserInfo.Id);
 
 			if (response.StatusCode == 200)
 			{

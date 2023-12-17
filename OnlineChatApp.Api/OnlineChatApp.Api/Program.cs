@@ -8,13 +8,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddSignalR();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ChatAppContext>(options =>
 {
-	options.UseSqlServer(builder.Configuration["ConnectionStrings"]);
+	options.UseSqlServer(builder.Configuration["ConnectionString"]);
 }); 
 
 builder.Services.AddTransient<IUserFunction, UserFunction>();
@@ -42,7 +41,6 @@ app.UseRouting();
 
 app.UseMiddleware<JwtMiddleware>();
 
-//app.MapControllers();
 
 app.UseEndpoints(endpoint =>
 {
