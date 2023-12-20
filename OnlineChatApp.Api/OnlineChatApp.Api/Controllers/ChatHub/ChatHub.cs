@@ -21,6 +21,11 @@ namespace OnlineChatApp.Api.Controllers.ChatHub
 			await Clients.All.SendAsync("ReceiveMessage", message);
 		}
 
+		public async Task SendMessageToAll(string user, string message)
+		{
+			await Clients.All.SendAsync("ReceiveMessage", user, message);
+		}
+
 		public async Task SendMessageToUser(int fromUserId, int toUserId, string message)
 		{
 			var connectionIds =_connectionMapping.Where(x => x.Key == toUserId)

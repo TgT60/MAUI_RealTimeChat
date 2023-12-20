@@ -16,23 +16,27 @@
                 Padding="10,0,10,0"
                 BorderColor="Transparent"
                 Margin="0,40,0,0">
-                <Entry 
-                    Placeholder="User name"
-                    ReturnType="Go"
-                    TextColor="Black"
-                    Text="{Binding UserName}"/>
+                <VerticalStackLayout>
+                    <Entry 
+                        Placeholder="User name"
+                        ReturnType="Go"
+                        TextColor="Black"
+                        Text="{Binding UserName}"/>
+                </VerticalStackLayout>
             </Frame>
 
             <Frame 
                 Padding="10,0,10,0"
                 BorderColor="Transparent"
                 Margin="0,10,0,0">
-                <Entry
-                    IsPassword="True"
-                    Placeholder="Password"
-                    ReturnType="Go"
-                    TextColor="Black"
-                    Text="{Binding Password}"/>
+                <VerticalStackLayout>
+                    <Entry
+                        IsPassword="True"
+                        Placeholder="Password"
+                        ReturnType="Go"
+                        TextColor="Black"
+                        Text="{Binding Password}"/>
+                </VerticalStackLayout>
             </Frame>
 
             <Label Margin="0,10,0,0"
@@ -74,7 +78,14 @@
 
             <HorizontalStackLayout Margin="0,40,0,0" HorizontalOptions="Center">
                 <Label Text="Not a members?"/>
-                <Label Margin="5,0,0,0" Text="Register now" TextColor="#1e90ff"/>
+                <Label
+                    Margin="5,0,0,0"
+                    Text="Register now"
+                    TextColor="#1e90ff">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command ="{Binding OpenRegisterPageCommand}"></TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
             </HorizontalStackLayout>
 
         </VerticalStackLayout>

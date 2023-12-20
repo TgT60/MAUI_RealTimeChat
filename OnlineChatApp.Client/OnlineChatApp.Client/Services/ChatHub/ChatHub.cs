@@ -45,6 +45,11 @@ namespace OnlineChatApp.Client.Services.ChatHub
 			await hubConnection.InvokeAsync("SendMessageToUser", fromUserId, toUserId, message);
 		}
 
+		public async Task SendMessageToAll(string name, string message)
+		{
+			await hubConnection.InvokeAsync("SendMessageToAll", name, message);
+		}
+
 		public void AddReceivedMessageHandler(Action<int, string> handler)
 		{
 			onReceiveMessageHandler.Add(handler);

@@ -16,7 +16,6 @@ namespace OnlineChatApp.Client.ViewModels
 
 			FromUserId = int.Parse(HttpUtility.UrlDecode(query["fromUserId"].ToString()));
 			ToUserId = int.Parse(HttpUtility.UrlDecode(query["toUserId"].ToString()));
-
 		}
 
 		private ServiceProvider _serviceProvider;

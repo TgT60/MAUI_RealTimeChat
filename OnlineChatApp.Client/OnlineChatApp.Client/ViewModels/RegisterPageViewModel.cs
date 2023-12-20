@@ -33,6 +33,12 @@ namespace OnlineChatApp.Client.ViewModels
 					isProcessing = false;
 				});
 			});
+
+			OpenLoginPageCommand = new Command(async () =>
+			{
+				await Shell.Current.GoToAsync($"LoginPage");
+			});
+
 			this._serviceProvider = serviceProvider;
 		}
 
@@ -93,5 +99,6 @@ namespace OnlineChatApp.Client.ViewModels
 			set { isProcessing = value; OnPropertyChanged();}
 		}
 		public ICommand RegisterCommand { get; set; }
+		public ICommand OpenLoginPageCommand { get; set;}
 	}
 }

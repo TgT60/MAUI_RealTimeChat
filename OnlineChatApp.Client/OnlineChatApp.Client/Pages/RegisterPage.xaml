@@ -44,12 +44,14 @@
                 Margin="0,20,0,0"
                 Padding="20,0,20,0"
                 BackgroundColor="White">
-                <Entry
-                    ReturnType="Go"
-                    Placeholder="Password"
-                    TextColor="Black"
-                    Text ="{Binding Password}"
-                    />
+                <VerticalStackLayout>
+                    <Entry
+                        IsPassword="True"
+                        ReturnType="Go"
+                        Placeholder="Password"
+                        TextColor="Black"
+                        Text ="{Binding Password}"/>
+                </VerticalStackLayout>
             </Frame>
             <Button
                 Margin="00,50,00,0"
@@ -90,7 +92,11 @@
                 <Label
                     Margin="5,0,0,0"
                     Text="Login now"
-                    TextColor="#1e90ff" />
+                    TextColor="#1e90ff">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OpenLoginPageCommand}"></TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
             </HorizontalStackLayout>
 
         </VerticalStackLayout>

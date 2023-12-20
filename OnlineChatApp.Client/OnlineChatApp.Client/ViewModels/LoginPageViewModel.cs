@@ -31,6 +31,12 @@ namespace OnlineChatApp.Client.ViewModels
 					IsProcessing = false;
 				});
 			});
+
+			OpenRegisterPageCommand = new Command( async () =>
+			{
+				await Shell.Current.GoToAsync($"RegisterPage");
+			});
+
 			this._serviceProvider = serviceProvider;
 		}
 
@@ -81,5 +87,6 @@ namespace OnlineChatApp.Client.ViewModels
 		}
 
 		public ICommand LoginCommand { get; set; }
+		public ICommand OpenRegisterPageCommand { get; set;}
 	}
 }

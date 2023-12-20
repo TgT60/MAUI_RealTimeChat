@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Android.Graphics.Drawables;
 using OnlineChatApp.Client.Services.Member;
 
 namespace OnlineChatApp.Client.ViewModels
@@ -52,6 +51,7 @@ namespace OnlineChatApp.Client.ViewModels
 			{
 				UserInfo = response.User;
 				AllMembers = new ObservableCollection<User>(response.AllMembers);
+				OnPropertyChanged("AllMembers");
 			}
 			else
 			{
@@ -89,5 +89,6 @@ namespace OnlineChatApp.Client.ViewModels
 		}
 
 		public ICommand RefreshCommand { get; set; }
+		public ICommand OpenChatPageCommand { get; set; }
 	}
 }

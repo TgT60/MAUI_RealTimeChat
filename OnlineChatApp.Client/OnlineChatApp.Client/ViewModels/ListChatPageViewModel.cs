@@ -13,6 +13,7 @@ namespace OnlineChatApp.Client.ViewModels
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 
+
 		private ServiceProvider _serviceProvider;
 		private ChatHub _chatHub;
 
@@ -37,6 +38,11 @@ namespace OnlineChatApp.Client.ViewModels
 			OpenChatPageCommand = new Command<int>(async (param) =>
 			{
 				await Shell.Current.GoToAsync($"ChatPage?fromUserId={UserInfo.Id}&toUserId={param}");
+			});
+
+			OpenMemberPageCommand = new Command(async () =>
+			{
+				await Shell.Current.GoToAsync($"MemberPage?userId={UserInfo.Id}");
 			});
 
 			_serviceProvider = serviceProvider;
@@ -133,5 +139,6 @@ namespace OnlineChatApp.Client.ViewModels
 		}
 		public ICommand RefreshCommand { get; set; }
 		public ICommand OpenChatPageCommand { get; set; }
+		public ICommand OpenMemberPageCommand { get;set;}
 	}
 }
