@@ -117,7 +117,6 @@ namespace OnlineChatApp.Client.ViewModels
 			get { return fromUserId; }
 			set { fromUserId = value; OnPropertyChanged(); }
 		}
-
 		public int ToUserId
 		{
 			get { return toUserId; }

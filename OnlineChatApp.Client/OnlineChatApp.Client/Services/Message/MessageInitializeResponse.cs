@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OnlineChatApp.Client.Services.Message
 {
-    class MessageInitializeResponse :BaseResponse
+    class MessageInitializeResponse : BaseResponse
     {
 	    public User FriendInfo { get; set; }
         public IEnumerable <Models.Message> Messages { get; set; }
