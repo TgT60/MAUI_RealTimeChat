@@ -187,7 +187,6 @@
                                         IsVisible="False">
                                         <Label
                                             FontSize="10"
-                                            Text="12m"
                                             VerticalOptions="Center"
                                             TextColor="Black"
                                             HorizontalOptions="Center"/>
@@ -247,7 +246,6 @@
                                         IsVisible="True">
                                         <Label
                                             FontSize="10"
-                                            Text="12m"
                                             VerticalOptions="Center"
                                             TextColor="Black"
                                             HorizontalOptions="Center"/>

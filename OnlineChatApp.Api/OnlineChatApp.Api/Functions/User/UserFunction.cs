@@ -62,7 +62,7 @@ namespace OnlineChatApp.Api.Functions.User
 		        UserName = userName,
 		        LoginId = loginId,
 		        Password = hashedPassword,
-		        AvatarSourceName = "Test",
+		        AvatarSourceName = "base_logo.png",
 		        StoredSalt = salt,
 		        IsOnline = false,
 		        LastLogonTime = DateTime.Now
@@ -71,7 +71,24 @@ namespace OnlineChatApp.Api.Functions.User
 	        _chatAppContext.TblUsers.Add(newUser);
 	        _chatAppContext.SaveChanges();
 
-	        Authenticate(loginId, password);
+	        var userFriendToNewUser = new TblUserFriend
+	        {
+		        UserId = newUser.Id,
+		        FriendId = 1
+	        };
+
+	        _chatAppContext.TblUserFriends.Add(userFriendToNewUser);
+
+			var userFriendToOldUser = new TblUserFriend
+	        {
+		        UserId = 1,
+		        FriendId = newUser.Id
+			};
+
+	        _chatAppContext.TblUserFriends.Add(userFriendToOldUser);
+			_chatAppContext.SaveChanges();
+
+			Authenticate(loginId, password);
 
 	        return newUser;
         }
